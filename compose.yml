@@ -1,0 +1,26 @@
+version: '3.8'
+
+networks:
+  cross:
+    external: true
+
+services:
+  postgres_db:
+    image: postgres:latest
+    container_name: cross_db
+    restart: always
+    environment:
+      - POSTGRES_DB=cross
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=password
+    ports:
+      - '5432:5432'
+    volumes:
+      - ./data/postgres_db:/var/lib/postgresql/data
+
+    networks:
+      - cross
+
+volumes:
+  postgres_db:
+    driver: local
